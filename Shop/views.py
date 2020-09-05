@@ -90,7 +90,10 @@ def productView(request, myid):
     # Fetch the product using the id
     product = Product.objects.filter(id=myid)
     return render(request, 'shop/prodView.html', {'product':product[0]})
-
+def showAllProducts(request, cat):
+        # Fetch the product using the category
+    product = Product.objects.filter(category=cat)
+    return render(request, 'shop/prodView.html', {'product':product})
 
 def checkout(request):
     if request.method=="POST":
