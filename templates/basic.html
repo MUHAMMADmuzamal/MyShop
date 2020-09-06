@@ -194,7 +194,50 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
-  {% block js %} {% endblock %}
+  {% comment %} {% block js %} {% endblock %} {% endcomment %}
+  <script>
+// Find out the cart items from localStorage
+if (localStorage.getItem('cart') == null) {
+    var cart = {};
+} else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    updateCart(cart);
+}
+// If the add to cart button is clicked, add/increment the item
+//$('.cart').click(function() {
+    $('.divpr').on('click', 'button.cart', function(){
+
+        var idstr = this.id.toString();
+        if (cart[idstr] != undefined) {
+             cart[idstr][0] += 1;
+        } else {
+            qty = 1;
+            name = document.getElementById('name'+idstr).innerHTML;
+            price = document.getElementById('price'+idstr).innerHTML;
+            cart[idstr] = [qty, name, parseInt(price)];
+        }
+        updateCart(cart);
+
+      
+
+});
+
+function clearCart() {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    localStorage.clear();
+    cart = {};
+    updateCart(cart);
+}
+function updateCart(cart) {
+    var sum = 0;
+    for (var item in cart) {
+        sum = sum + cart[item][0];
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = sum;
+}
+
+</script>
 </body>
 
 </html>

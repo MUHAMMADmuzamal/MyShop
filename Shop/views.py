@@ -91,10 +91,20 @@ def productView(request, myid):
     product = Product.objects.filter(id=myid)
     return render(request, 'shop/prodView.html', {'product':product[0]})
 def showAllProducts(request, cat):
-        # Fetch the product using the category
+    # allProds = []
+    # catprods = Product.objects.values('category', 'id')
+    # cats = {item['category'] for item in catprods if item['category']==cat}
+    # print(cats)
+    # for cat in cats:
+    #     prod = Product.objects.filter(category=cat)
+    #     n = len(prod)
+    #     nSlides = n // 4 + ceil((n / 4) - (n // 4))
+    #     allProds.append([prod, range(1, nSlides), nSlides])
+    # params = {'allProds':allProds}
+    # Fetch the product using the category
     product = Product.objects.filter(category=cat)
-    return render(request, 'shop/prodView.html', {'product':product})
-
+    pdict = {'product':product}
+    return render(request, 'shop/showAllProducts.html', pdict)
 def checkout(request):
     if request.method=="POST":
         items_json = request.POST.get('itemsJson', '')
