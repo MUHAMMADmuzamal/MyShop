@@ -14,4 +14,5 @@ urlpatterns = [
     path('login', views.handleLogin, name='Login'),
     path('logout', views.handleLogout, name='LogOut'),
     path('allproducts/<str:cat>', views.showAllProducts, name='LogOut'),
+    path('cart', views.cart, name='Cart'),
 ]

@@ -48,7 +48,7 @@ padding-right: 0;
                     {% for i in product %}
                     <div class="col-xs-3 col-sm-3 col-md-3">
                         <div class="card align-items-center" style="width: 18rem;">
-                            <img src='/media/{{i.image}}' class="card-img-top" alt="...">
+                            <img id="imgsrcpr{{i.id}}"  src='/media/{{i.image}}' class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>
                                 <p class="card-text">{{i.desc|slice:"0:53"}}...</p>
@@ -66,4 +66,3 @@ padding-right: 0;
                     {% endfor %}
 
 {% endblock %}
-{

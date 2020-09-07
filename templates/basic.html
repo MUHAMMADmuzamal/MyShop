@@ -55,7 +55,7 @@
         <button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-toggle="popover"
           data-placement="bottom" data-html="true"
           data-content="Vivamussagittis lacus vel augue laoreet rutrum faucibus.">
-          Cart(<span id="cart">0</span>)
+         <a href="/cart"> Cart(<span id="cart">0</span>)</a>
         </button>
         <!-- ---------------------------------------------------------------------------------------- -->
         {% if user.is_authenticated %}
@@ -194,7 +194,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
-  {% comment %} {% block js %} {% endblock %} {% endcomment %}
+  {% block js %} {% endblock %}
   <script>
 // Find out the cart items from localStorage
 if (localStorage.getItem('cart') == null) {
@@ -214,7 +214,8 @@ if (localStorage.getItem('cart') == null) {
             qty = 1;
             name = document.getElementById('name'+idstr).innerHTML;
             price = document.getElementById('price'+idstr).innerHTML;
-            cart[idstr] = [qty, name, parseInt(price)];
+            img = document.getElementById('imgsrc'+idstr).src;
+            cart[idstr] = [qty, name, parseInt(price),img];
         }
         updateCart(cart);
 
@@ -235,6 +236,7 @@ function updateCart(cart) {
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     document.getElementById('cart').innerHTML = sum;
+    console.log(cart);
 }
 
 </script>
