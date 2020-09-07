@@ -50,8 +50,10 @@ if ($.isEmptyObject(cart)) {
         let minusid = "\""+"minus"+item + "\"";
         let plusid = "\""+"plus"+item + "\"";
         let deleteid = item;
+        let changeid = "\""+item + "\"";
+        pmbuttons = "<button onclick='minus("+minusid +")' id='minus" + item + "' class='btn btn-primary minus'>-</button> <input type='number' id='val" + item + "'  value=" + cart[item][0] + " oninput= 'updateqty("+changeid+")'  onchange= 'setBlankToOne("+changeid+")'  ><button onclick='plus("+plusid+")' id='plus" + item + "' class='btn btn-primary plus'> + </button>";
 
-        pmbuttons = "<button onclick='minus("+minusid +")' id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button onclick='plus("+plusid+")' id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+        //pmbuttons = "<button onclick='minus("+minusid +")' id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button onclick='plus("+plusid+")' id='plus" + item + "' class='btn btn-primary plus'> + </button>";
         mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
        
                     <img src="${img}" class="rounded" alt="..." width="50" height="50">
@@ -77,13 +79,13 @@ cart['pr' + a][0] = cart['pr' + a][0] - 1;
     
     cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
     if (cart['pr' + a][0] == 1){
-        document.getElementById('divpr' + a).innerHTML = '<button id="pr'+a+'" class="btn btn-primary cart">Add to Cart</button>';
+        //document.getElementById('divpr' + a).innerHTML = '<button id="pr'+a+'" class="btn btn-primary cart">Add to Cart</button>';
         
-      document.getElementById('valpr' + a).innerHTML = 1;
+     // document.getElementById('valpr' + a).innerHTML = 1;
        document.getElementById('valpr' + a).value = 1;
     }
     else{
-        document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+       // document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
          document.getElementById('valpr' + a).value = cart['pr' + a][0];
     }
     updateCart(cart);
@@ -93,7 +95,7 @@ cart['pr' + a][0] = cart['pr' + a][0] - 1;
  function plus(id) {
     a = id.slice(6, );
     cart['pr' + a][0] = cart['pr' + a][0] + 1;
-    document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+   // document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
      document.getElementById('valpr' + a).value = cart['pr' + a][0];
     updateCart(cart);
     updateTotalPrice();
@@ -116,6 +118,7 @@ function deleteFromCart(did)
     updateTotalPrice();
     location.reload();
 }
+
 function calculateTotalPrice()
 {
     var st = [0, 0]
@@ -132,9 +135,27 @@ function calculateTotalPrice()
     return st;
 }
 
-function valueChange()
+function updateqty(id)
 {
-    var value = document.getElementById('')
+    var value = document.getElementById("val"+id).value;
+    if(value != ""){
+    cart[id][0]=parseInt(value) ;
+    updateTotalPrice();
+  updateCart(cart);  
+    }else
+    { value=1;
+       // document.getElementById("val"+id).value=1;
+            cart[id][0]=parseInt(value) ;
+    updateTotalPrice();
+  updateCart(cart);  
+    }
+}
+function setBlankToOne(id)
+{
+if( document.getElementById("val"+id).value == "")
+{
+ document.getElementById("val"+id).value =1;
+}
 }
 </script>
 {% endblock %}
